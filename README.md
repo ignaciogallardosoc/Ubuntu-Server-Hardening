@@ -16,13 +16,13 @@ Despliegue y aseguramiento de un servidor Linux Ubuntu mediante metodologías de
 ### 1.1. Análisis de Estado Inicial
 Se realizó una auditoría de puertos con `ss -tulpn` detectando servicios innecesarios expuestos por defecto (CUPS/Impresión y Avahi/mDNS), lo cual representaba un riesgo de seguridad al exponer puertos sin uso legítimo.
 
-![Auditoria Inicial](1-auditoria-inicial.png)
+![Auditoria Inicial](1-auditoria-inicial.png.png)
 
 ### 1.2. Eliminación de Servicios
 Aplicando el principio de "Menor Privilegio", se detuvieron y deshabilitaron los servicios vulnerables para asegurar que no inicien con el sistema, reduciendo el consumo de recursos y cerrando vectores de ataque.
 - **Comandos:** `systemctl stop` y `systemctl disable`.
 
-![Limpieza](2-eliminacion-servicios.png)
+![Limpieza](2-eliminacion-servicios.png.png)
 
 ---
 
@@ -31,18 +31,18 @@ Aplicando el principio de "Menor Privilegio", se detuvieron y deshabilitaron los
 ### 2.1. Backup y Configuración
 Antes de cualquier modificación, se realizó un respaldo del archivo de configuración crítica (`sshd_config`). Posteriormente, se editaron las directivas de seguridad para prohibir el acceso directo del usuario `root` y limitar los intentos de conexión.
 
-![Backup](3-backup-config.png)
-![Configuracion](4-configuracion-ssh.png)
+![Backup](3-backup-config.png.png)
+![Configuracion](4-configuracion-ssh.png.png)
 
 ### 2.2. Validación del Servicio
 Se verificó la sintaxis de la configuración para evitar errores y se reinició el servicio SSH, confirmando su estado activo y funcional con la nueva política de seguridad cargada.
 
-![Servicio Activo](5-servicio-activo.png)
+![Servicio Activo](5-servicio-activo.png.png)
 
 ### 2.3. Prueba de Concepto (PoC)
-Para validar la efectividad del Hardening, se simuló un intento de acceso no autorizado utilizando el usuario `root`. El sistema rechazó la conexión exitosamente, validando el bloqueo exitoso.
+Para validar la efectividad del Hardening, se simuló un intento de acceso no autorizado utilizando el usuario `root`. El sistema rechazó la conexión inmediatamente (`Permission denied`), validando el bloqueo exitoso.
 
-![Acceso Denegado](6-acceso-denegado.png)
+![Acceso Denegado](6-acceso-denegado.png.png)
 
 ---
 
@@ -51,7 +51,7 @@ Para validar la efectividad del Hardening, se simuló un intento de acceso no au
 ### 3.1. Implementación de UFW
 Se configuró el Firewall del sistema bajo una política de **Denegación Implícita** (Default Deny Incoming), permitiendo únicamente el tráfico entrante por el puerto 22 (SSH) para administración remota. Todo otro tráfico no solicitado es bloqueado.
 
-![Firewall Final](7-firewall-final.png)
+![Firewall Final](7-firewall-final.png.png)
 
 ---
 
